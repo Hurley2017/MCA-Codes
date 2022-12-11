@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <limit.h>
 int genericmax(int*, int, int);
 void takeinp(int*, int);
 void copyarr(int* , int*, int);
@@ -63,6 +65,6 @@ int immediatemax(int arr[], int n)
 		}
 	}
 	temp = arr[i_max];
-	arr[i_max] = -12345678;
+	arr[i_max] = INT_MIN;
 	return temp;
 }
