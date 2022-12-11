@@ -8,7 +8,7 @@ int main()
 	int n, mid;
 	printf("How many elements will be in the array?\n");
 	scanf("%d", &n);
-	int arr[n], t_temp[n], f_temp[n], m_temp[n];
+	int arr[n], t_temp[n], f_temp[n];
 	takeinp(arr, n);
 	copyarr(t_temp, arr, n);
 	copyarr(f_temp, arr, n);
@@ -23,7 +23,7 @@ int main()
 	{
 		printf("The middle element of the array is %d.\n", arr[n/2]);
 	}
-	printf("The middle element of the array by position is %d.\n", genericmax(m_temp, n, mid));
+	return 0;
 	
 }
 void takeinp(int arr[], int n)
