@@ -48,6 +48,7 @@ void displayOrder(Student s[], int *roll, int n)
             if(s[j].Roll_Number == *(roll+i))
             {
                 printf("%s %s\t", s[j].fname, s[j].lname);
+                break;
             }
         }
     }
@@ -108,7 +109,6 @@ void disp(Student s)
 {
     printf("\nFull Name : %s %s", s.fname, s.lname);
     printf("\nRoll : %d\n", s.Roll_Number);
-    int sum = 0;
     printf("Average marks : %f\n", s.avg);
     printf("Total marks : %f\n", s.total);
 }
