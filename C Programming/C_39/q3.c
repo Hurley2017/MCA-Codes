@@ -24,7 +24,7 @@ int main()
     }
     system("clear");
     restart:
-    printf("\n1)View all customers having less than 1000/- in their account.\n2)Transaction mode\n3) Clear Screen.\n4)Exit.\n\nEnter choice : ");
+    printf("\n1)View all customers having less than 1000/- in their account.\n2)Transaction mode\n3)Clear Screen.\n4)Exit.\n\nEnter choice : ");
     scanf("%d", &sw);
     switch (sw)
     {
@@ -74,11 +74,11 @@ void function2(Janata *c, long long target_amount, int choice)
         if(c->curr_bal >= target_amount)
         {
             c->curr_bal = c->curr_bal - target_amount;
-            printf("Transaction Success!");
+            printf("\nTransaction Success!");
         }
         else
         {
-            printf("The balance is insufficient for the specified withdrawal.\n");
+            printf("\nThe balance is insufficient for the specified withdrawal.\n");
         }
     }
     else if(choice == 1)
