@@ -44,7 +44,7 @@ int main()
                     break;
                 }
             }
-            if(gotnum)
+            if(gotnum == 1)
             {
                 printf("Invalid account number.\n");
             }
