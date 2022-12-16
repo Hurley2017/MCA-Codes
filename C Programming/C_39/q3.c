@@ -5,12 +5,14 @@ typedef struct
     long long acc_num, curr_bal;
     char fname[maxn], lname[maxn];
 } Janata;
+void target(long long *target_acc_num, long long *target_amount, int *choice);
 void function1(Janata c[], int n);
-void function2(Janata c[], int n);
+void function2(Janata *c, long long target_amount, int choice);
 void takeinp(Janata *c);
 int main()
 {
-    int n, sw;
+    int n, sw, choice;
+    long long target_acc_num, target_amount;
     printf("Enter the number of customers.\n");
     scanf("%d", &n);
     Janata c[n];
@@ -19,9 +21,10 @@ int main()
         printf("\n\nEnter the data of customer %d\n", i+1);
         takeinp(&c[i]);
     }
-    restart:
     system("clear");
-    printf("\n1)View all customers having less than 1000/- in their account.\n2)Enter transaction mode.\n3) Clear Screen.\n4)Exit.");
+    restart:
+    printf("\n1)View all customers having less than 1000/- in their account.\n2)Transaction mode\n3) Clear Screen.\n4)Exit.\n\nEnter choice : ");
+    scanf("%d", &sw);
     switch (sw)
     {
         case 1:
@@ -30,8 +33,15 @@ int main()
             goto restart;
             break;
         case 2:
-            printf("\nIn transaction mode.\n");
-            function2(c, n);
+            target(&target_acc_num, &target_amount, &choice);
+            for(int i=0; i<n; i++)
+            {
+                if(c[i].acc_num == target_acc_num)
+                {
+                    function2(&c[i], target_amount, choice);
+                    break;
+                }
+            }
             goto restart;
             break;
         case 3:
@@ -46,9 +56,41 @@ int main()
     }
     return 0;
 }
-void function2(Janata c[], int n)
+void target(long long *target_acc_num, long long *target_amount, int *choice)
 {
-    
+    printf("\nEnter account number : ");
+    scanf("%lld", target_acc_num);
+    printf("\nEnter amount : ");
+    scanf("%lld", target_amount);
+    printf("\nEnter choice-[0 for Withdrawal, 1 for Deposit] : ");
+    scanf("%d", choice);
+}
+void function2(Janata *c, long long target_amount, int choice)
+{
+    printf("Hello %s!", c->fname);
+    if(choice==0)
+    {
+        if(c->curr_bal >= target_amount)
+        {
+            c->curr_bal = c->curr_bal - target_amount;
+            printf("Transaction Success!");
+        }
+        else
+        {
+            printf("The balance is insufficient for the specified withdrawal.\n");
+        }
+    }
+    else if(choice == 1)
+    {
+        if(target_amount>=0)
+        {
+            c->curr_bal = c->curr_bal + target_amount;
+        }
+        else
+        {
+            printf("Deposit value cannot be negative.\n");
+        }
+    }
 }
 void function1(Janata c[], int n)
 {
