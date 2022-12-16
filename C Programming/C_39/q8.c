@@ -6,7 +6,7 @@ int main()
     FILE *file1, *file2;
     char temp;
     file1 = fopen("/home/tusher/Desktop/Codes/MCA-Codes/C Programming/C_39/myfiles/file1.txt", "r");
-    file2 = fopen("/home/tusher/Desktop/Codes/MCA-Codes/C Programming/C_39/myfiles/file2.txt", "w");
+    file2 = fopen("/home/tusher/Desktop/Codes/MCA-Codes/C Programming/C_39/myfiles/file2.txt", "a");
     while(1)
     {
         temp = getc(file1);
