@@ -32,7 +32,10 @@ int main()
 }
 void storeinfiles(Student s[], FILE *file[], int n)
 {
-    //do nothing now
+    for(int i=0; i<n; i++)
+    {
+        
+    }
 }
 void closefiles(FILE *file[], int n)
 {
@@ -46,14 +49,14 @@ void initfiles(FILE *file[], Student s[], int n)
 {
     char location[maxn] = "/home/tusher/Desktop/Codes/MCA-Codes/C Programming/C_39/myfiles/fq10/";
     char locationbackup[maxn] = "/home/tusher/Desktop/Codes/MCA-Codes/C Programming/C_39/myfiles/fq10/";
-    char extension = ".bin";
+    char extension[maxn] = ".bin";
     for(int i=0; i<n; i++)
     {
         char tempc[maxn];
         sprintf(tempc, "%d", s[i].Roll_Number);
         strcat(location, tempc);
         strcat(location, extension);
-        file[i] = fopen(location, "w");
+        file[i] = fopen(location, "wb");
         strcpy(location, locationbackup);
     }
 }
