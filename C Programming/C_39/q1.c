@@ -116,8 +116,7 @@ void takeinp(Student *s)
 {
     s->total = 0;
     printf("\nEnter full name : ");
-    scanf("%s", s->fname);
-    scanf("%s", s->lname);
+    scanf("%s %s", s->fname, s->lname);
     printf("Enter Roll Number : ");
     scanf("%d", &s->Roll_Number);
     for(int i=0; i<5; i++)
