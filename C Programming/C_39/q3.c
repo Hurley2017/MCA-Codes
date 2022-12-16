@@ -12,7 +12,7 @@ void function2(Janata *c, long long target_amount, int choice);
 void takeinp(Janata *c);
 int main()
 {
-    int n, sw, choice;
+    int n, sw, choice, gotnum = 1;
     long long target_acc_num, target_amount;
     printf("Enter the number of customers.\n");
     scanf("%d", &n);
@@ -24,7 +24,7 @@ int main()
     }
     system("clear");
     restart:
-    printf("\n1)View all customers having less than 1000/- in their account.\n2)Transaction mode\n3)Clear Screen.\n4)Exit.\n\nEnter choice : ");
+    printf("\n\n1)View all customers having less than 1000/- in their account.\n2)Transaction mode\n3)Clear Screen.\n4)Exit.\n\nEnter choice : ");
     scanf("%d", &sw);
     switch (sw)
     {
@@ -39,9 +39,14 @@ int main()
             {
                 if(c[i].acc_num == target_acc_num)
                 {
+                    gotnum = 0;
                     function2(&c[i], target_amount, choice);
                     break;
                 }
+            }
+            if(gotnum)
+            {
+                printf("Invalid account number.\n");
             }
             goto restart;
             break;
@@ -74,7 +79,7 @@ void function2(Janata *c, long long target_amount, int choice)
         if(c->curr_bal >= target_amount)
         {
             c->curr_bal = c->curr_bal - target_amount;
-            printf("\nTransaction Success!");
+            printf("\nTransaction Success!\nUpdated balance is %lld/-.", c->curr_bal);
         }
         else
         {
@@ -86,6 +91,7 @@ void function2(Janata *c, long long target_amount, int choice)
         if(target_amount>=0)
         {
             c->curr_bal = c->curr_bal + target_amount;
+            printf("\nTransaction Success!\nUpdated balance is %lld/-.", c->curr_bal);
         }
         else
         {
