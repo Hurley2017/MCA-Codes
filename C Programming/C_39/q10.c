@@ -12,6 +12,7 @@ void storeinfiles(Student s[], FILE *file[], int n);
 void takeinp(Student *s);
 void initfiles(FILE *file[], Student s[], int n);
 void closefiles(FILE *file[], int n);
+void storestatement(char statement[], FILE *file);
 int main()
 {
     int n;
@@ -32,9 +33,37 @@ int main()
 }
 void storeinfiles(Student s[], FILE *file[], int n)
 {
+    //fname lname dd/mm/yyyy marks
+    char statement[maxn];
     for(int i=0; i<n; i++)
     {
-        
+        char tempc[maxn];
+        strcpy(statement, "");
+        strcat(statement, s[i].fname);
+        strcat(statement, " ");
+        strcat(statement, s[i].lname);
+        strcat(statement, " ");
+        sprintf(tempc, "%d", s[i].bday);
+        strcat(statement, tempc);
+        strcat(statement, "/");
+        sprintf(tempc, "%d", s[i].bmonth);
+        strcat(statement, tempc);
+        strcat(statement, "/");
+        sprintf(tempc, "%d", s[i].byear);
+        strcat(statement, tempc);
+        strcat(statement, " ");
+        sprintf(tempc, "%f", s[i].marks);
+        strcat(statement, tempc);
+        storestatement(statement, file[i]);
+    }
+}
+void storestatement(char statement[], FILE *file)
+{
+    int i = 0;
+    while(statement[i] != '\0')
+    {
+        putc(statement[i], file);
+        i++;
     }
 }
 void closefiles(FILE *file[], int n)
