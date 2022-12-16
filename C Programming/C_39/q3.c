@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #define maxn 50
 typedef struct
 {
