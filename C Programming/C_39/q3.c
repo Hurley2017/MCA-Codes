@@ -1,5 +1,6 @@
 #include <stdio.h>
 #define maxn 50
+#define start 1
 typedef struct
 {
     long long acc_num, curr_bal;
