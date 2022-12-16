@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #define maxn 50
 #define maxs 5
+#define Tusher 100
 typedef struct
 {
     char fname[maxn], lname[maxn];
