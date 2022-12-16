@@ -6,21 +6,49 @@ typedef struct
     char fname[maxn], lname[maxn];
 } Janata;
 void function1(Janata c[], int n);
+void function2(Janata c[], int n);
 void takeinp(Janata *c);
 int main()
 {
-    int n;
+    int n, sw;
     printf("Enter the number of customers.\n");
     scanf("%d", &n);
     Janata c[n];
     for(int i=0; i<n; i++)
     {
-        printf("Enter the data of customer %d\n", i+1);
+        printf("\n\nEnter the data of customer %d\n", i+1);
         takeinp(&c[i]);
     }
-    printf("Displaying all name of the customers with account balance less than 1000/- .\n");
-    function1(c, n);
+    restart:
+    system("clear");
+    printf("\n1)View all customers having less than 1000/- in their account.\n2)Enter transaction mode.\n3) Clear Screen.\n4)Exit.");
+    switch (sw)
+    {
+        case 1:
+            printf("\nDisplaying all name of the customers with account balance less than 1000/- .\n");
+            function1(c, n);
+            goto restart;
+            break;
+        case 2:
+            printf("\nIn transaction mode.\n");
+            function2(c, n);
+            goto restart;
+            break;
+        case 3:
+            system("clear");
+            goto restart;
+        case 4:
+            return 0;
+        default:
+            printf("invalid input.\n");
+            goto restart;
+            break;
+    }
     return 0;
+}
+void function2(Janata c[], int n)
+{
+    
 }
 void function1(Janata c[], int n)
 {
