@@ -28,6 +28,7 @@ int main()
     }
     fclose(file1);
     fclose(file2);
+    return 0;
 }
 char convertUpper(char c)
 {
