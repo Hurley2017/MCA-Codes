@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #define maxn 50
 #define maxs 5
-//This is my change motherfucker!
 typedef struct
 {
     char fname[maxn], lname[maxn];
