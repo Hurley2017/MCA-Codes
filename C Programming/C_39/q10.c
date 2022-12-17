@@ -14,6 +14,7 @@ typedef struct
     int Roll_Number, bday, bmonth, byear;
     float marks;
 } Student;
+void initiate(FILE **file, Student *s);
 void gracify(Student *s);
 void storeinfiles(Student s[], FILE *file[], int n);
 void takeinp(Student *s);
@@ -22,7 +23,6 @@ void closefiles(FILE *file[], int n);
 void storestatement(char statement[], FILE *file);
 void fdelete(int rm);
 void store(Student s, FILE *file);
-void init(FILE *file, Student s);
 int main()
 {
     int n, sw, rm, ex = 0;
@@ -55,10 +55,11 @@ int main()
         case 1:
             printf("\n\n");
             takeinp(&s[n+ex]);
-            init(file[n+ex], s[n+ex]);
+            initiate(&file[n+ex], &s[n+ex]);
             store(s[n+ex], file[n+ex]);
             fclose(file[n+ex]);
             ex++;
+            goto restart;
         case 2:
             printf("\nEnter roll number to delete record.\n");
             scanf("%d", &rm);
@@ -89,7 +90,6 @@ void fdelete(int rm)
     {
         printf("File/Record doesn't exist.\n");
     }
-    fclose(re);
 }
 void gracify(Student *s)
 {
@@ -140,20 +140,23 @@ void closefiles(FILE *file[], int n)
     }
 
 }
-void init(FILE *file, Student s)
+void initiate(FILE **file, Student *s)
 {
-    char tempc[maxn], location[maxn];
-    strcpy(location, locationbackup);
-    sprintf(tempc, "%d", s.Roll_Number);
+    char location[maxn];
+    strcpy(location, locationbackup); 
+    char tempc[maxn];
+    sprintf(tempc, "%d", s->Roll_Number);
     strcat(location, tempc);
     strcat(location, extension);
-    file = fopen(location, write);
+    *file = fopen(location, write);
+    strcpy(location, locationbackup);
+
 }
 void initfiles(FILE *file[], Student s[], int n)
-{    
+{       
     for(int i=0; i<n; i++)
     {
-        init(file[i], s[i]);
+        initiate(&file[i], &s[i]);
     }
 }
 void takeinp(Student *s)
