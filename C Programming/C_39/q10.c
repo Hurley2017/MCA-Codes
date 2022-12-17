@@ -31,37 +31,45 @@ int main()
     scanf("%d", &n);
     Student s[maxrecord];
     FILE *file[maxrecord], *re;
-    printf("Taking input of %d students one by one!\n", n);
-    for(int i=0; i<n; i++)
+    if(n != 0)
     {
-        printf("\nReceiving data of Student Number %d", i+1);
-        takeinp(&s[i]);
-    }
-    initfiles(file, s, n);
-    for(int i=0; i<n; i++)
-    {
-        if(s[i].marks <50 && s[i].marks > 40)
+        printf("Taking input of %d students one by one!\n", n);
+        for(int i=0; i<n; i++)
         {
-            gracify(&s[i]);
+            printf("\nReceiving data of Student Number %d\n", i+1);
+            takeinp(&s[i]);
         }
-    }    
-    storeinfiles(s, file, n);
-    closefiles(file, n);
+        initfiles(file, s, n);
+        for(int i=0; i<n; i++)
+        {
+            if(s[i].marks <50 && s[i].marks > 40)
+            {
+                gracify(&s[i]);
+            }
+        }    
+        storeinfiles(s, file, n);
+        closefiles(file, n);
+    }
+    system("clear");
     restart:
-    printf("\n1) Add a new record\n2) Delete a record.\n3) Exit.\n\n Enter choice : ");
+    printf("\nChoose from the following\n1) Add a new record\n2) Delete a record.\n3) Exit.\n\nEnter choice : ");
     scanf("%d", &sw);
     switch(sw)
     {
         case 1:
-            printf("\n\n");
+            printf("\n");
+            printf(" ----------------- New record -----------------\n");
             takeinp(&s[n+ex]);
+            gracify(&s[n+ex]);
             initiate(&file[n+ex], &s[n+ex]);
             store(s[n+ex], file[n+ex]);
             fclose(file[n+ex]);
             ex++;
             goto restart;
         case 2:
-            printf("\nEnter roll number to delete record.\n");
+            printf("\n");
+            printf(" ----------------- Delete record ----------------- \n");            
+            printf("Roll Number : ");
             scanf("%d", &rm);
             fdelete(rm);
             goto restart;
@@ -85,6 +93,7 @@ void fdelete(int rm)
     if(re != NULL)
     {
         remove(location);
+        printf("File/Record deleted successfully.\n");
     }
     else
     {
@@ -161,11 +170,11 @@ void initfiles(FILE *file[], Student s[], int n)
 }
 void takeinp(Student *s)
 {
-    printf("\nEnter full name : ");
+    printf("Enter full name : ");
     scanf("%s %s", s->fname, s->lname);
     printf("Enter Roll Number : ");
     scanf("%d", &s->Roll_Number);
-    printf("\nEnter birthday : ");
+    printf("Enter birthday : ");
     scanf("%d %d %d", &s->bday, &s->bmonth, &s->byear);
     printf("Enter marks : ");
     scanf("%f", &s->marks);
