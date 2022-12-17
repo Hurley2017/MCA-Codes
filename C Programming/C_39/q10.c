@@ -22,6 +22,7 @@ void closefiles(FILE *file[], int n);
 void storestatement(char statement[], FILE *file);
 void fdelete(int rm);
 void store(Student s, FILE *file);
+void init(FILE *file, Student s);
 int main()
 {
     int n, sw, rm, ex = 0;
@@ -54,6 +55,7 @@ int main()
         case 1:
             printf("\n\n");
             takeinp(&s[n+ex]);
+            init(file[n+ex], s[n+ex]);
             store(s[n+ex], file[n+ex]);
             fclose(file[n+ex]);
             ex++;
@@ -138,18 +140,20 @@ void closefiles(FILE *file[], int n)
     }
 
 }
-void initfiles(FILE *file[], Student s[], int n)
+void init(FILE *file, Student s)
 {
-    char location[maxn];
-    strcpy(location, locationbackup);    
+    char tempc[maxn], location[maxn];
+    strcpy(location, locationbackup);
+    sprintf(tempc, "%d", s.Roll_Number);
+    strcat(location, tempc);
+    strcat(location, extension);
+    file = fopen(location, write);
+}
+void initfiles(FILE *file[], Student s[], int n)
+{    
     for(int i=0; i<n; i++)
     {
-        char tempc[maxn];
-        sprintf(tempc, "%d", s[i].Roll_Number);
-        strcat(location, tempc);
-        strcat(location, extension);
-        file[i] = fopen(location, write);
-        strcpy(location, locationbackup);
+        init(file[i], s[i]);
     }
 }
 void takeinp(Student *s)
