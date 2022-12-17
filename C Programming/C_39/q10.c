@@ -14,20 +14,22 @@ typedef struct
     int Roll_Number, bday, bmonth, byear;
     float marks;
 } Student;
-void gractify(Student *s);
+void gracify(Student *s);
 void storeinfiles(Student s[], FILE *file[], int n);
 void takeinp(Student *s);
 void initfiles(FILE *file[], Student s[], int n);
 void closefiles(FILE *file[], int n);
 void storestatement(char statement[], FILE *file);
+void fdelete(int rm);
+void store(Student s, FILE *file);
 int main()
 {
-    int n, sw, rm;
+    int n, sw, rm, ex = 0;
     char tempc[maxn], location[maxn];
     printf("Number of Students : ");
     scanf("%d", &n);
     Student s[maxrecord];
-    FILE *file[n], *re;
+    FILE *file[maxrecord], *re;
     printf("Taking input of %d students one by one!\n", n);
     for(int i=0; i<n; i++)
     {
@@ -45,22 +47,20 @@ int main()
     storeinfiles(s, file, n);
     closefiles(file, n);
     restart:
-    printf("1) Add a new record\n2) Delete a record.\n2) Exit.\n\n Enter choice : ");
+    printf("\n1) Add a new record\n2) Delete a record.\n3) Exit.\n\n Enter choice : ");
     scanf("%d", &sw);
     switch(sw)
     {
+        case 1:
+            printf("\n\n");
+            takeinp(&s[n+ex]);
+            store(s[n+ex], file[n+ex]);
+            fclose(file[n+ex]);
+            ex++;
         case 2:
             printf("\nEnter roll number to delete record.\n");
             scanf("%d", &rm);
-            sprintf(tempc, "%d", rm);
-            strcat(tempc, extension);
-            strcpy(location, locationbackup);
-            strcat(location, tempc);
-            re = fopen(location, read);
-            strcpy(location, locationbackup);
-            strcpy(tempc, "");
-            remove(re);
-            fclose(re);
+            fdelete(rm);
             goto restart;
         case 3:
             return 0;   
@@ -70,34 +70,55 @@ int main()
     }
     return 0;
 }
+void fdelete(int rm)
+{
+    char tempc[maxn], location[maxn];
+    FILE *re;    
+    sprintf(tempc, "%d", rm);
+    strcat(tempc, extension);
+    strcpy(location, locationbackup);
+    strcat(location, tempc);
+    re = fopen(location, read);
+    if(re != NULL)
+    {
+        remove(location);
+    }
+    else
+    {
+        printf("File/Record doesn't exist.\n");
+    }
+    fclose(re);
+}
 void gracify(Student *s)
 {
     s->marks = s->marks + 10;
 }
+void store(Student s, FILE *file)
+{
+    char tempc[maxn], statement[maxn];
+    strcpy(statement, "");
+    strcat(statement, s.fname);
+    strcat(statement, " ");
+    strcat(statement, s.lname);
+    strcat(statement, " ");
+    sprintf(tempc, "%d", s.bday);
+    strcat(statement, tempc);
+    strcat(statement, "/");
+    sprintf(tempc, "%d", s.bmonth);
+    strcat(statement, tempc);
+    strcat(statement, "/");
+    sprintf(tempc, "%d", s.byear);
+    strcat(statement, tempc);
+    strcat(statement, " ");
+    sprintf(tempc, "%f", s.marks);
+    strcat(statement, tempc);
+    storestatement(statement, file);
+}
 void storeinfiles(Student s[], FILE *file[], int n)
 {
-    //fname lname dd/mm/yyyy marks
-    char statement[maxn];
     for(int i=0; i<n; i++)
     {
-        char tempc[maxn];
-        strcpy(statement, "");
-        strcat(statement, s[i].fname);
-        strcat(statement, " ");
-        strcat(statement, s[i].lname);
-        strcat(statement, " ");
-        sprintf(tempc, "%d", s[i].bday);
-        strcat(statement, tempc);
-        strcat(statement, "/");
-        sprintf(tempc, "%d", s[i].bmonth);
-        strcat(statement, tempc);
-        strcat(statement, "/");
-        sprintf(tempc, "%d", s[i].byear);
-        strcat(statement, tempc);
-        strcat(statement, " ");
-        sprintf(tempc, "%f", s[i].marks);
-        strcat(statement, tempc);
-        storestatement(statement, file[i]);
+        store(s[i], file[i]);
     }
 }
 void storestatement(char statement[], FILE *file)
