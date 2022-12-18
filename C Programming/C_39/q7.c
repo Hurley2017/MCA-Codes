@@ -95,7 +95,10 @@ void viewmatx(int *matx, int element)
     int pointer = 0;
     while(pointer < element)
     {
-        printf("%d\t", *(matx + pointer));
+        if(*(matx + pointer) != 10)
+        {
+            printf("%d\t", *(matx + pointer)-48);
+        }
         pointer++;  
     }
 }
