@@ -1,39 +1,71 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#define read "r"
+#define write "w"
+#define append "a" 
+#define extension ".bin"
 #define rlocation "/home/tusher/Desktop/Codes/MCA-Codes/C Programming/C_39/myfiles/file3.txt"
 #define wlocation "/home/tusher/Desktop/Codes/MCA-Codes/C Programming/C_39/myfiles/file4.txt"
-void printmatx(int *matx);
-void printmax(int max[][2], int row);
+int celement(FILE *rf);
+int cnewline(FILE *rf);
+void storematx(FILE **rf, int *matx);
+void viewmatx(int *matx, int element);
+void buildmax(int max[][2], int *matx, int element);
+void viewmax(int max[][2], int newline);
+void saveinfile(int max[][2], int newline);
 int main()
 {
-    FILE *l;
-    int n, *matx, newline = 0, row = 0, sum = 0, count = 0, p = 0;
-    l = fopen(rlocation, "r");
-    n = getc(l);
-    while(n != EOF)
+    FILE *rf;
+    int element, newline, *matx;
+    rf = fopen(rlocation, read);
+    element = celement(rf);
+    rewind(rf);
+    newline = cnewline(rf);
+    rewind(rf);
+    printf("%d %d\n", element, newline);
+    matx = (int *)malloc(sizeof(int)*element);
+    storematx(&rf, matx);
+    printf("Printing the dynamic array : \n");
+    viewmatx(matx, element);
+    printf("\n");
+    fclose(rf);
+    int max[newline+1][2];
+    buildmax(max, matx, element);
+    printf("Printing the blueprint of output file  : \n");
+    viewmax(max, newline+1);
+    saveinfile(max, newline+1);
+    printf("File Saved Successfully!");
+    return 0;
+}
+void saveinfile(int max[][2], int newline)
+{
+    FILE *sf;
+    char tempc[100];
+    char space = " "; 
+    sf = fopen(wlocation, write);
+    for(int i=0; i<newline; i++)
     {
-        if(n == 10)
+        for(int j=0; j<2; j++)
         {
-            printf("\n");
-            newline++;
+            strcpy(tempc, "");
+            sprintf(tempc, "%c", max[i][j]);
+            putc(tempc, sf);
+            putc(space, sf);
         }
-        else
-        {
-            printf("%d\t", n-48);
-        }
-        n = getc(l);
-        count++; 
+        putc("\n", sf);
     }
-    fclose(l);
-    l = fopen(rlocation, "r");
-    matx = (int *)malloc(sizeof(int)*count);
-    int max[newline][2]; 
-    n = getc(l);
-    while(n != EOF)
+    printf("\n");
+
+}
+void buildmax(int max[][2], int *matx, int element)
+{
+    int p = 0, sum = 0, row = 0, f = 0;  
+    while(f < element)
     {
-        if(n != 10)
+        if(*(matx+p)!=10)
         {
-            sum = sum + n-48;
+            sum = sum + *(matx+p) - 48;         
         }
         else
         {
@@ -42,38 +74,66 @@ int main()
             row++;
             sum = 0;
         }
-        *(matx+p) = n;
         p++;
-        n = getc(l);           
+        f++;
     }
     max[row][0] = row;
-    max[row][1] = sum;
-    printf("\n");
-    printmax(max, row);
-    printmatx(matx);
-    fclose(l);
-    return 0;
+    max[row][1] = sum;   
 }
-void printmax(int max[][2], int row)
+void viewmax(int max[][2], int newline)
 {
-    int i = 0;
-    while(i<=row)
+    for(int i=0; i<newline; i++)
     {
         for(int j=0; j<2; j++)
         {
             printf("%d\t", max[i][j]);
         }
         printf("\n");
-        i++;
-    }
-}
-void printmatx(int *matx)
-{
-    int p = 0;
-    while(*(matx+p))
-    {
-        printf("%d ", *(matx+p));
-        p++;
     }
     printf("\n");
+}
+void viewmatx(int *matx, int element)
+{
+    int pointer = 0;
+    while(pointer < element)
+    {
+        printf("%d\t", *(matx + pointer));
+        pointer++;  
+    }
+}
+void storematx(FILE **rf, int *matx)
+{
+    int n, p = 0;
+    n = getc(*rf);
+    while(n != EOF)
+    {
+        *(matx+p) = n;
+        n = getc(*rf);
+        p++;
+    }
+}
+int cnewline(FILE *rf)
+{
+    int n, nl = 0;
+    n = getc(rf);
+    while(n != EOF)
+    {
+        if(n == 10)
+        {
+            nl++;
+        }
+        n = getc(rf);
+    }
+    return nl;
+}
+int celement(FILE *rf)
+{
+    int n, element = 0;
+    n = getc(rf);
+    while(n != EOF)
+    {
+        element++;
+        n = getc(rf);
+    }
+    return element;
 }
