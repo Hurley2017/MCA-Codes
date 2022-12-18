@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#define space " "
+#define nline "\n"
 #define read "r"
 #define write "w"
 #define append "a" 
@@ -35,25 +37,21 @@ int main()
     printf("Printing the blueprint of output file  : \n");
     viewmax(max, newline+1);
     saveinfile(max, newline+1);
-    printf("File Saved Successfully!");
+    printf("File Saved Successfully!\n");
     return 0;
 }
 void saveinfile(int max[][2], int newline)
 {
     FILE *sf;
-    char tempc[100];
-    char space = " "; 
     sf = fopen(wlocation, write);
     for(int i=0; i<newline; i++)
     {
         for(int j=0; j<2; j++)
         {
-            strcpy(tempc, "");
-            sprintf(tempc, "%c", max[i][j]);
-            putc(tempc, sf);
-            putc(space, sf);
+            fprintf(sf, "%d", max[i][j]);
+            fprintf(sf, "%s", space);
         }
-        putc("\n", sf);
+        fprintf(sf, "%s", nline);
     }
     printf("\n");
 
