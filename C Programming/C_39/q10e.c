@@ -46,6 +46,9 @@ int main()
     loc = fopen(wlocation, w);
     storeData(loc, s, n);
     fclose(loc);
+    loc = fopen(wlocation, a);
+    printf("%d", getc(loc));
+    fclose(loc);
     return 0;
 }
 void storeData(FILE *loc, Student s[], int n)
