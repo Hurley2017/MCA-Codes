@@ -16,9 +16,8 @@
 typedef struct
 {
     char fname[maxn], lname[maxn];
-    int Roll_Number, bday, bmonth, byear;
+    int Roll_Number, bday, bmonth, byear, dump;
     float marks;
-    int dump;
 } Student;
 void takeinp(Student *s);
 void gracify(Student *s);
