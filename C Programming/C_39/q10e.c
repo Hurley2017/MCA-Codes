@@ -25,7 +25,7 @@ void storeData(FILE *loc, Student s[], int n);
 void store(FILE *loc, Student s);
 int main()
 {
-    int n;
+    int n, sw, ex, rm;
     FILE *loc; 
     printf("Number of Students.\n");
     scanf("%d", &n);
@@ -46,9 +46,34 @@ int main()
     loc = fopen(wlocation, w);
     storeData(loc, s, n);
     fclose(loc);
-    loc = fopen(wlocation, a);
-    printf("%d", getc(loc));
-    fclose(loc);
+    system("clear");
+    restart:
+    printf("\nChoose from the following\n1) Add a new record\n2) Delete a record.\n3) Exit.\n\nEnter choice : ");
+    scanf("%d", &sw);
+    switch(sw)
+    {
+        case 1:
+            printf("\n");
+            printf(" ----------------- New record -----------------\n");
+            loc = fopen(wlocation, a);
+            takeinp(&s[n+ex]);
+            gracify(&s[n+ex]);
+            store(loc, s[n+ex]);
+            fclose(loc);
+            ex++;
+            goto restart;
+        case 2:
+            printf("\n");
+            printf(" ----------------- Delete record ----------------- \n");            
+            printf("Roll Number : ");
+            scanf("%d", &rm);
+            goto restart;
+        case 3:
+            return 0;   
+        default:
+            printf("Invalid input.\nRestarting.\n");
+            goto restart;
+    }
     return 0;
 }
 void storeData(FILE *loc, Student s[], int n)
