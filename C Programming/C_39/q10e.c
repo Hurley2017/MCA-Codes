@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#define r "r"
-#define w "w"
-#define a "a"
+#define rb "rb"
+#define wb "wb"
+#define ab "ab"
 #define space " "
 #define slash "/"
 #define maxs 200
@@ -12,21 +12,23 @@
 #define maxn 50
 #define empty ""
 #define nl "\n"
-#define wlocation "/home/tusher/Desktop/Codes/MCA-Codes/C Programming/C_39/myfiles/fq10/filex.bin"
+#define wlocation "/home/tusher/Desktop/Codes/MCA-Codes/C Programming/C_39/myfiles/filex.bin"
 typedef struct
 {
     char fname[maxn], lname[maxn];
     int Roll_Number, bday, bmonth, byear;
     float marks;
+    int dump;
 } Student;
 void takeinp(Student *s);
 void gracify(Student *s);
 void storeData(FILE *loc, Student s[], int n);
 void store(FILE *loc, Student s);
+void dumpify(Student *s);
 int main()
 {
-    int n, sw, ex, rm;
-    FILE *loc; 
+    int n, sw, ex, ign, rm, df = 1;
+    FILE *loc, *tloc; 
     printf("Number of Students.\n");
     scanf("%d", &n);
     Student s[maxrecords];
@@ -43,7 +45,7 @@ int main()
             gracify(&s[i]);
         }
     }
-    loc = fopen(wlocation, w);
+    loc = fopen(wlocation, wb);
     storeData(loc, s, n);
     fclose(loc);
     system("clear");
@@ -55,7 +57,7 @@ int main()
         case 1:
             printf("\n");
             printf(" ----------------- New record -----------------\n");
-            loc = fopen(wlocation, a);
+            loc = fopen(wlocation, ab);
             takeinp(&s[n+ex]);
             gracify(&s[n+ex]);
             store(loc, s[n+ex]);
@@ -64,9 +66,30 @@ int main()
             goto restart;
         case 2:
             printf("\n");
-            printf(" ----------------- Delete record ----------------- \n");            
-            printf("Roll Number : ");
+            printf(" ----------------- Delete record ----------------- \n");
+            printf("Roll number : ");
             scanf("%d", &rm);
+            for(int i=0; i<n+ex; i++)
+            {
+                if(s[i].Roll_Number == rm && s[i].dump == 0)
+                {
+                    df = 0;
+                    dumpify(&s[i]);
+                    break;
+                }
+            }
+            if(df == 1)
+            {
+                printf("Record not found!\n");
+            }
+            else
+            {
+                loc = fopen(wlocation, wb);
+                storeData(loc, s, n+ex);
+                fclose(loc);
+                printf("Record deleted successfully!\n");
+                df = 1;
+            }
             goto restart;
         case 3:
             return 0;   
@@ -76,11 +99,18 @@ int main()
     }
     return 0;
 }
+void dumpify(Student *s)
+{
+    s->dump = 1;
+}
 void storeData(FILE *loc, Student s[], int n)
 {
     for(int i=0; i<n; i++)
     {
-        store(loc, s[i]);
+        if(s[i].dump != 1)
+        {
+            store(loc, s[i]);
+        }
     }
 }
 void store(FILE *loc, Student s)
@@ -123,4 +153,5 @@ void takeinp(Student *s)
     scanf("%d %d %d", &s->bday, &s->bmonth, &s->byear);
     printf("Enter marks : ");
     scanf("%f", &s->marks);
+    s->dump = 0;
 }
