@@ -58,7 +58,10 @@ int main()
             printf(" ----------------- New record -----------------\n");
             loc = fopen(wlocation, ab);
             takeinp(&s[n+ex]);
-            gracify(&s[n+ex]);
+            if(s[n+ex].marks <50 && s[n+ex].marks > 40)
+            {
+                gracify(&s[n+ex]);
+            }
             store(loc, s[n+ex]);
             fclose(loc);
             ex++;
