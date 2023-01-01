@@ -12,7 +12,7 @@
 #define maxn 50
 #define empty ""
 #define nl "\n"
-#define wlocation "/home/tusher/Desktop/Codes/MCA-Codes/C Programming/C_39/myfiles/filex.bin"
+#define wlocation "myfiles/filex.bin"
 typedef struct
 {
     char fname[maxn], lname[maxn];
@@ -24,25 +24,31 @@ void gracify(Student *s);
 void storeData(FILE *loc, Student s[], int n);
 void store(FILE *loc, Student s);
 void dumpify(Student *s);
+void fixstd();
 int main()
 {
     int n, sw, ex, ign, rm, df = 1;
-    FILE *loc, *tloc; 
+    FILE *loc; 
     printf("Number of Students.\n");
     scanf("%d", &n);
+    fixstd();
     Student s[maxrecords];
-    printf("Taking input of %d students one by one!\n", n);
-    for(int i=0; i<n; i++)
+    if(n != 0)
     {
-        printf("\nReceiving data of Student Number %d\n", i+1);
-        takeinp(&s[i]);
-    }
-    for(int i=0; i<n; i++)
-    {
-        if(s[i].marks <50 && s[i].marks > 40)
+        printf("Taking input of %d students one by one!\n", n);
+        for(int i=0; i<n; i++)
         {
-            gracify(&s[i]);
+            printf("\nReceiving data of Student Number %d\n", i+1);
+            takeinp(&s[i]);
         }
+        for(int i=0; i<n; i++)
+        {
+            if(s[i].marks <50 && s[i].marks > 40)
+            {
+                gracify(&s[i]);
+            }
+        }
+        printf("Hi");
     }
     loc = fopen(wlocation, wb);
     storeData(loc, s, n);
@@ -100,6 +106,11 @@ int main()
             goto restart;
     }
     return 0;
+}
+void fixstd()
+{
+    int c;
+    while((c = getchar()) != '\n' && c != EOF);
 }
 void dumpify(Student *s)
 {
