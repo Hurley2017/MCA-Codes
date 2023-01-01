@@ -16,29 +16,67 @@ void sortbyacc(Library b[maxsize], int n);
 int chechsim(char*, char*);
 int main()
 {
-    int n;
+    int n, ex = 0, sw;
     char auth[ms];
     Library b[maxsize];
     printf("Enter number of books : ");
     scanf("%d", &n);
     fixstd();
-    printf("Receiving inputs of %d books.\n", n);
-    for(int i = 0; i<n; i++)
+    if(n != 0)
     {
-        printf("Book : %d\n", i+1);
-        takeinp(&b[i]);
+        printf("\n\nReceiving inputs of %d books.\n", n);
+        for(int i = 0; i<n; i++)
+        {
+            printf("\nBook : %d\n", i+1);
+            takeinp(&b[i]);
+        }
+        printf("\n\nPrinting book information.\n");
+        for(int i=0; i<n; i++)
+        {
+            printf("\nBook : %d\n", i+1);
+            disinp(b[i]);
+        }
     }
-    printf("Printing book information.\n");
-    for(int i=0; i<n; i++)
+    restart:
+    printf("1)Add book information.\n2)Display book information\n3)List books from the same author.\n4)List specified titles of the books.\n5)List the count of books in the library.\n6)List the books in order of accession number.\n7)Exit.\n\nEnter your choice : ");
+    scanf("%d", &sw);
+    fixstd();
+    switch(sw)
     {
-        printf("Book : %d\n", i+1);
-        disinp(b[i]);
+        case 1:
+            printf("\nBook : %d\n", n+ex);
+            takeinp(&b[n+ex]);
+            ex++;
+            goto restart;
+        case 2:
+            printf("\n\nPrinting book information.\n");
+            for(int i=0; i<n+ex; i++)
+            {
+                printf("\nBook : %d\n", i+1);
+                disinp(b[i]);
+            }
+            goto restart;
+        case 3:
+            printf("Sort by author : \nAuthor Name : ");
+            fgets(auth, ms, stdin);
+            sortbyauth(b, n+ex, auth);
+            goto restart;
+        case 4:
+            disptit(b, n+ex);
+            goto restart;
+        case 5:
+            printf("There are total of %d books in the library.\n", n+ex);
+            goto restart;
+        case 6:
+            sortbyacc(b, n+ex);
+            goto restart;
+        case 7:
+            return 0;
+        default:
+            printf("Invalid input - Restarting.\n");
+            goto restart;
+
     }
-    printf("Sort by author : \nAuthor Name : ");
-    fgets(auth, ms, stdin);
-    sortbyauth(b, n, auth);
-    disptit(b, n);
-    sortbyacc(b, n);
     return 0;
 }
 void sortbyacc(Library b[maxsize], int n)
@@ -48,11 +86,6 @@ void sortbyacc(Library b[maxsize], int n)
     {
         accs[i] = b[i].acc_num;
     }
-    for(int i=0; i<n; i++)
-    {
-        printf("%d\t", accs[i]);
-    }
-    printf("\n");
     for(int i = 0; i<n-1; i++)
     {
         for(int j=i+1; j<n; j++)
@@ -83,7 +116,7 @@ void disptit(Library b[maxsize], int n)
 {
     for(int i=0; i<n; i++)
     {
-        printf("Book : %d [Title : %s]", i+1, b[i].title);
+        printf("Book No %d Title : %s", i+1, b[i].title);
     }
 }
 int chechsim(char* a, char* b)
