@@ -12,6 +12,7 @@ void disptit(Library b[maxsize], int n);
 void disinp(Library b);
 void takeinp(Library *b);
 void sortbyauth(Library b[maxsize], int n, char* auth);
+void sortbyacc(Library b[maxsize], int n);
 int chechsim(char*, char*);
 int main()
 {
@@ -37,7 +38,46 @@ int main()
     fgets(auth, ms, stdin);
     sortbyauth(b, n, auth);
     disptit(b, n);
+    sortbyacc(b, n);
     return 0;
+}
+void sortbyacc(Library b[maxsize], int n)
+{
+    int accs[n];
+    for(int i=0; i<n; i++)
+    {
+        accs[i] = b[i].acc_num;
+    }
+    for(int i=0; i<n; i++)
+    {
+        printf("%d\t", accs[i]);
+    }
+    printf("\n");
+    for(int i = 0; i<n-1; i++)
+    {
+        for(int j=i+1; j<n; j++)
+        {
+            if(accs[i] > accs[j])
+            {
+                int temp = accs[i];
+                accs[i] = accs[j];
+                accs[j] = temp;
+            }
+        }
+    }
+    for(int i = 0; i<n; i++)
+    {
+        printf("Book %d - \n", i+1);
+        for(int j=0; i<n; j++)
+        {
+            if(accs[i] == b[j].acc_num)
+            {
+                disinp(b[j]);
+                break;
+            } 
+
+        }
+    }
 }
 void disptit(Library b[maxsize], int n)
 {
