@@ -47,33 +47,40 @@ int main()
             printf("\nBook : %d\n", n+ex);
             takeinp(&b[n+ex]);
             ex++;
+            printf("\n");
             goto restart;
         case 2:
-            printf("\n\nPrinting book information.\n");
+            printf("\nPrinting book information.\n");
             for(int i=0; i<n+ex; i++)
             {
                 printf("\nBook : %d\n", i+1);
                 disinp(b[i]);
+                printf("\n");
             }
             goto restart;
         case 3:
-            printf("Sort by author : \nAuthor Name : ");
+            printf("\nAuthor Name : ");
             fgets(auth, ms, stdin);
+            printf("\n");
             sortbyauth(b, n+ex, auth);
             goto restart;
         case 4:
+            printf("\nPrinting all the titles of the books.\n");
             disptit(b, n+ex);
+            printf("\n");
             goto restart;
         case 5:
-            printf("There are total of %d books in the library.\n", n+ex);
+            printf("\nThere are total of %d books in the library.\n\n", n+ex);
             goto restart;
         case 6:
+            printf("\n");
             sortbyacc(b, n+ex);
+            printf("\n");
             goto restart;
         case 7:
             return 0;
         default:
-            printf("Invalid input - Restarting.\n");
+            printf("\nInvalid input - Restarting.\n");
             goto restart;
 
     }
