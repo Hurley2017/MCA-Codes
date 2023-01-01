@@ -8,6 +8,7 @@ typedef struct
     float price, acc_num, issued;
     char title[ms], author[ms];
 } Library;
+void disptit(Library b[maxsize], int n);
 void disinp(Library b);
 void takeinp(Library *b);
 void sortbyauth(Library b[maxsize], int n, char* auth);
@@ -35,7 +36,15 @@ int main()
     printf("Sort by author : \nAuthor Name : ");
     fgets(auth, ms, stdin);
     sortbyauth(b, n, auth);
+    disptit(b, n);
     return 0;
+}
+void disptit(Library b[maxsize], int n)
+{
+    for(int i=0; i<n; i++)
+    {
+        printf("Book : %d [Title : %s]", i+1, b[i].title);
+    }
 }
 int chechsim(char* a, char* b)
 {
