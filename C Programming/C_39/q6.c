@@ -30,22 +30,16 @@ int main()
             printf("\nBook : %d\n", i+1);
             takeinp(&b[i]);
         }
-        printf("\n\nPrinting book information.\n");
-        for(int i=0; i<n; i++)
-        {
-            printf("\nBook : %d\n", i+1);
-            disinp(b[i]);
-        }
     }
-    restart:
     system("clear");
-    printf("1)Add book information.\n2)Display book information\n3)List books from the same author.\n4)List specified titles of the books.\n5)List the count of books in the library.\n6)List the books in order of accession number.\n7)Exit.\n\nEnter your choice : ");
+    restart:
+    printf("\n1)Add book information.\n2)Display book information\n3)List books from the same author.\n4)List specified titles of the books.\n5)List the count of books in the library.\n6)List the books in order of accession number.\n7)Exit.\n\nEnter your choice : ");
     scanf("%d", &sw);
     fixstd();
     switch(sw)
     {
         case 1:
-            printf("\nBook : %d\n", n+ex+1);
+            printf("\nBook %d\n", n+ex+1);
             takeinp(&b[n+ex]);
             ex++;
             printf("\n");
