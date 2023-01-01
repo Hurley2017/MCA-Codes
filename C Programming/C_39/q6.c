@@ -38,6 +38,7 @@ int main()
         }
     }
     restart:
+    system("clear");
     printf("1)Add book information.\n2)Display book information\n3)List books from the same author.\n4)List specified titles of the books.\n5)List the count of books in the library.\n6)List the books in order of accession number.\n7)Exit.\n\nEnter your choice : ");
     scanf("%d", &sw);
     fixstd();
