@@ -44,7 +44,7 @@ int main()
     switch(sw)
     {
         case 1:
-            printf("\nBook : %d\n", n+ex);
+            printf("\nBook : %d\n", n+ex+1);
             takeinp(&b[n+ex]);
             ex++;
             printf("\n");
@@ -82,7 +82,6 @@ int main()
         default:
             printf("\nInvalid input - Restarting.\n");
             goto restart;
-
     }
     return 0;
 }
@@ -147,6 +146,7 @@ void sortbyauth(Library b[maxsize], int n, char* auth)
         {
             printf("Book : %d\n", i+1);
             disinp(b[i]);
+            printf("\n");
         }
     }
 }
