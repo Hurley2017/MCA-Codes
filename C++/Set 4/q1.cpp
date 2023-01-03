@@ -8,6 +8,7 @@ class Parent
         double iamprivate;
     protected:
         double iamprotected;
+        int a = 7;
     public:
         double iampublic;
         Parent()
@@ -20,10 +21,7 @@ class Parent
             iamprotected = n;
             iampublic = n;
         }
-        double printPrivate()
-        {
-            return pI*pow(iamprivate, 2);
-        }
+        
         double printProtected()
         {
             return pI*pow(iamprotected, 2);
