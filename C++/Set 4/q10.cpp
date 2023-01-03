@@ -38,7 +38,7 @@ int main()
     bool f;
     double height, radius, length, width, restart;
     restart:
-    cout << "Choose from the following : \n1) Cube\n2) Cuboid\n3) Cylinder\n 4) Sphere\n5) Cone\n6) Exit\nEnter choice : ";
+    cout << "Choose from the following : \n1) Cube\n2) Cuboid\n3) Cylinder\n4) Sphere\n5) Cone\n6) Exit\nEnter choice : ";
     cin >> sw;
     switch(sw)
     {
