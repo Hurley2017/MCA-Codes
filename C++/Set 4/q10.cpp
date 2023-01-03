@@ -35,45 +35,44 @@ int main()
 {
     Shapes s;
     int sw;
+    bool f;
+    double height, radius, length, width, restart;
     restart:
     cout << "Choose from the following : \n1) Cube\n2) Cuboid\n3) Cylinder\n 4) Sphere\n5) Cone\n6) Exit\nEnter choice : ";
     cin >> sw;
     switch(sw)
     {
         case 1:
-            double length;
             cout << "For Cube" << endl;
             cout << "Enter length : ";
             cin >> length;
+            cout << "Answer is " << s.calVal(length) << endl;
+            goto restart;
         case 2:
-            double height, lenght, width;
             cout << "For Cuboid" << endl;
             cout << "Enter height : ";
             cin >> height;
             cout << "Enter length : ";
-            cin >> lenght;
+            cin >> length;
             cout << "Enter width : ";
             cin >> width;
-            cout << "Answer is " << s.calVal(height, width, lenght) << endl;
+            cout << "Answer is " << s.calVal(height, width, length) << endl;
+            goto restart;
         case 3:
-            double height, radius;
             cout << "For Cylinder" << endl;
             cout << "Enter height : ";
             cin >> height;
             cout << "Enter radius : ";
             cin >> radius;
             cout << "Answer is " << s.calVal(radius, height) << endl;
+            goto restart;
         case 4:
-            bool f;
-            double radius;
             cout << "For Sphere" << endl;
             cout << "Enter radius : ";
             cin >> radius;
             cout << "Answer is " << s.calVal(radius, f) << endl;
             goto restart;
         case 5:
-            bool f;
-            double height, radius;
             cout << "For Cone" << endl;
             cout << "Enter height : ";
             cin >> height;
@@ -87,5 +86,5 @@ int main()
             cout << "Bad choice." << endl;
             goto restart;
     }
-    
+    return 0;
 }
