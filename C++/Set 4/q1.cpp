@@ -57,6 +57,7 @@ int main()
     cout << "Enter the radius value of the circle." << endl;
     cin >> value;
     p.takeinp(value);
+    c.takeinp(value);
     outer:
     cout << "Choose access specifier.\n1) Private\n2) Protected\n3) Public\n4) Exit\nEnter Choice : ";
     cin >> switch1;
