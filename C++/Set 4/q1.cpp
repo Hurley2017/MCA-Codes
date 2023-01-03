@@ -2,49 +2,149 @@
 #include <cmath>
 #define pI 3.1415
 using namespace std;
-class Circle
+class Parent
 {
     private:
-        float pri_rad;
+        double iamprivate;
     protected:
-        float pro_rad;
+        double iamprotected;
     public:
-        float pub_rad;
-    void getpriVal()
-    {
-        cout << "Getting input for private variable.\n";
-        cin >> pri_rad;
-    }
-    void getproVal()
-    {
-        cout << "Getting input for protected variable.\n";
-        cin >> pro_rad;
-    }
-    void getpubVal()
-    {
-        cout << "Getting input for public variable.\n";
-        cin >> pub_rad;
-    }
-    double calcpriArea()
-    {
-        return pI*pow(pri_rad, 2);
-    }
-    double calcproArea()
-    {
-        return pI*pow(pro_rad, 2);
-    }
-    double calcpubArea()
-    {
-        return pI*pow(pub_rad, 2);
-    }
-    double general(float fromMain)
-    {
-        return pI*pow(fromMain, 2);
-    }
+        double iampublic;
+        Parent()
+        {
+            cout << "Parent class initialized." << endl;
+        }
+        void takeinp(double n)
+        {
+            iamprivate = n;
+            iamprotected = n;
+            iampublic = n;
+        }
+        double printPrivate()
+        {
+            return pI*pow(iamprivate, 2);
+        }
+        double printProtected()
+        {
+            return pI*pow(iamprotected, 2);
+        }
+        double printPublic()
+        {
+            return pI*pow(iampublic, 2);
+        }
 };
+class Child : public Parent
+{
+    public:
+        Child()
+        {
+            cout << "Child class initialized." << endl;
+        }
+};
+double printAll(double n)
+{
+    return pI*pow(n,2);
+}
 int main()
 {
-    Circle ob;
-    //finish in class[lab]
+    int switch1, switch2;
+    double value;
+    system("clear");
+    cout << "Question 1: Write a C++ Program to calculate area of a circle to demonstrate the access modifier (A) public (B) private (C) protected." << endl;
+    cout << "Running : " << endl;
+    Parent p;
+    Child c;
+    cout << "Enter the radius value of the circle." << endl;
+    cin >> value;
+    p.takeinp(value);
+    outer:
+    cout << "Choose access specifier.\n1) Private\n2) Protected\n3) Public\n4) Exit\nEnter Choice : ";
+    cin >> switch1;
+    switch (switch1)
+    {
+        case 1:
+            inner1:
+            cout << "In Private mode : " << endl;
+            cout << "Choose options from below.\n1) Access from Parent class.\n2) Access from derived class.\n3) Access from main function.\n4) Exit\nEnter Choice : ";
+            cin >> switch2;
+            switch (switch2)
+            {
+                case 1:
+                    cout << "Accessing from Parent class." << endl;
+                    cout << p.printPrivate() << endl;
+                    goto inner1;
+                case 2:
+                    cout << "Accessing from Derived class." << endl;
+                    cout << c.printPrivate() << endl;
+                    goto inner1;
+                case 3:
+                    cout << "Accessing from main function." << endl;
+                    //cout << printAll(p.iamprivate);
+                    goto inner1;
+                case 4:
+                    break;    
+                default:
+                    cout << "Incorrect Choice" << endl;
+                    goto inner1;
+            }
+            goto outer;
+        case 2:
+            inner2:
+            cout << "In Protected mode : " << endl;
+            cout << "Choose options from below.\n1) Access from Parent class.\n2) Access from derived class.\n3) Access from main function.\n4) Exit\nEnter Choice : ";
+            cin >> switch2;
+            switch (switch2)
+            {
+                case 1:
+                    cout << "Accessing from Parent class." << endl;
+                    cout << p.printProtected() << endl;
+                    goto inner2;
+                case 2:
+                    cout << "Accessing from Derived class." << endl;
+                    cout << c.printProtected() << endl;
+                    goto inner2;
+                case 3:
+                    cout << "Accessing from main function." << endl;
+                    //cout << printAll(p.iamprotected);
+                    goto inner2;
+                case 4:
+                    break;    
+                default:
+                    cout << "Incorrect Choice" << endl;
+                    goto inner2;
+            }
+            goto outer;
+        case 3:
+            inner3:
+            cout << "In Public mode : " << endl;
+            cout << "Choose options from below.\n1) Access from Parent class.\n2) Access from derived class.\n3) Access from main function.\n4) Exit\nEnter Choice : ";
+            cin >> switch2;
+            switch (switch2)
+            {
+                case 1:
+                    cout << "Accessing from Parent class." << endl;
+                    cout << p.printPublic() << endl;
+                    goto inner3;
+                case 2:
+                    cout << "Accessing from Derived class." << endl;
+                    cout << c.printPublic() << endl;
+                    goto inner3;
+                case 3:
+                    cout << "Accessing from main function." << endl;
+                    cout << printAll(p.iampublic) << endl;
+                    goto inner3;
+                case 4:
+                    break;    
+                default:
+                    cout << "Incorrect Choice" << endl;
+                    goto inner3;
+            }
+            goto outer;
+        case 4:
+            break;
+        default:
+            cout << "Incorrect Choice!" << endl;
+            goto outer;
+    }
     return 0;
 }
