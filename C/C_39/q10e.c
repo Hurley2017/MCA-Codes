@@ -27,7 +27,7 @@ void dumpify(Student *s);
 void fixstd();
 int main()
 {
-    int n, sw, ex, ign, rm, df = 1;
+    int n, sw, ex = 0, ign, rm, df = 1;
     FILE *loc; 
     printf("Number of Students.\n");
     scanf("%d", &n);
