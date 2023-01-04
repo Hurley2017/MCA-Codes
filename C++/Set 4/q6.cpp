@@ -14,7 +14,11 @@ class Year
             y = n;
             isLeapYear = false;
         }
-        void check()
+        ~Year()
+        {
+            cout << "Destructor is called." << endl;
+        }
+        bool check()
         {
             if(y%4 == 0 && y%100 != 0)
             {
@@ -35,5 +39,19 @@ class Year
             {
                 isLeapYear = false;
             }
+            return isLeapYear;
         }    
 };
+int main()
+{
+    Year inp(2000);
+    if(inp.check())
+    {
+        cout << "It is Leap Year." << endl;
+    }
+    else
+    {
+        cout << "It is not Leap Year." << endl;
+    }
+    return 0;
+}
