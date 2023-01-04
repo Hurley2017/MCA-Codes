@@ -31,6 +31,7 @@ class Number_List
             {
                 cout << *(arr + i) << "\t";
             }
+            cout << endl;
         }
         void sortArr()
         {
@@ -68,7 +69,7 @@ class Number_List
             int max = INT_MIN;
             for(i = 0; i<sizearr; i++)
             {
-                if(max > *(arr + i))
+                if(max < *(arr + i))
                 {
                     max = *(arr + i);
                 }
