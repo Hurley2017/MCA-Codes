@@ -14,7 +14,7 @@ class String
         {
             i = 0;
         }
-        String(char in[])
+        String(const char in[])
         {
             i = 0;
             size = strlen(in);
