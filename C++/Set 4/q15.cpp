@@ -28,12 +28,13 @@ class Complex
         {
             cout << real << "+" << imaginerycross << "i" << endl;
         }
-        void sum(Complex a, Complex b)
-        {
-            this->real = a.real + b.real;
-            this->imaginerycross = a.imaginerycross + b.imaginerycross;
-        }         
+        friend void sum(Complex, Complex, Complex*);         
 };
+void sum(Complex a, Complex b, Complex *c)
+{
+    c->real = a.real + b.real;
+    c->imaginerycross = a.imaginerycross + b.imaginerycross;
+}
 int main()
 {
     
@@ -41,7 +42,7 @@ int main()
     A.show();
     B.show();
     C.show();
-    C.sum(A, B);
+    sum(A, B, &C);
     C.show();
     return 0;
 }
