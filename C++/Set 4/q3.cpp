@@ -14,6 +14,7 @@ class Number_List
         }
         void createArr()
         {
+            cout << "Calling Create function." << endl;
             cout << "Enter size of the array : ";
             cin >> sizearr;
             arr = (int *)malloc(sizearr*sizeof(int));
@@ -21,9 +22,19 @@ class Number_List
             {
                 *(arr+i) = rand()%limit;
             }
+            cout << "Successfully created the array." << endl;
+        }
+        void displayArr()
+        {
+            cout << "Calling display function : " << endl;
+            for(i = 0; i<sizearr; i++)
+            {
+                cout << *(arr + i) << "\t";
+            }
         }
         void sortArr()
         {
+            cout << "Calling sort function :" << endl;
             for(i = 0; i<sizearr-1; i++)
             {
                 for(j = i; j<sizearr; j++)
@@ -36,9 +47,11 @@ class Number_List
                     }
                 }
             }
+            cout << "Sorted successfully." << endl;
         }
-        int voidMin()
+        void voidMin()
         {
+            cout << "Calling Min function :" << endl;
             int min = INT_MAX;
             for(i = 0; i<sizearr; i++)
             {
@@ -47,10 +60,11 @@ class Number_List
                     min = *(arr + i);
                 }
             }
-            return min;
+            cout << "Minimum element of the array is " << min << endl;
         }
-        int voidMax()
+        void voidMax()
         {
+            cout << "Calling Max function :" << endl;
             int max = INT_MIN;
             for(i = 0; i<sizearr; i++)
             {
@@ -59,6 +73,16 @@ class Number_List
                     max = *(arr + i);
                 }
             }
-            return max;
+            cout << "Maximum element of the array is " << max << endl;
         }
 };
+int main()
+{
+    Number_List n(100);
+    n.createArr();
+    n.displayArr();
+    n.sortArr();
+    n.displayArr();
+    n.voidMin();
+    n.voidMax();    
+}
