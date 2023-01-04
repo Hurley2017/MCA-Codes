@@ -79,11 +79,14 @@ class Number_List
 };
 int main()
 {
-    Number_List n(100);
+    int sw;
+    srand(time(0));
+    Number_List n(1000);
     n.createArr();
     n.displayArr();
     n.sortArr();
     n.displayArr();
     n.voidMin();
-    n.voidMax();    
+    n.voidMax();
+    return 0;   
 }
