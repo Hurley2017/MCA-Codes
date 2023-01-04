@@ -14,7 +14,7 @@ class String
         {
             i = 0;
         }
-        String(char *in)
+        String(char in[])
         {
             i = 0;
             size = strlen(in);
@@ -22,14 +22,16 @@ class String
             while(i<size)
             {
                 *(this->in + i) = *(in + i);
+                i++;
             }
         }
         void dispStr()
         {
-            fputs(in, stdout);
+            fputs(this->in, stdout);
         }
         void join(String a)
         {
+            i = 0;
             this->in = (char*)realloc(this->in, (a.size+size)*sizeof(char));
             while(i < a.size)
             {
@@ -40,10 +42,13 @@ class String
 };
 int main()
 {
-    String one("My name is "), two("Tusher Mondal");
+    String one("Hello "), two("World.");
     one.dispStr();
+    cout << endl;
     two.dispStr();
+    cout << endl;
     one.join(two);
     one.dispStr();
+    cout << endl;
     return 0;
 } 
