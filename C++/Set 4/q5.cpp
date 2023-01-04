@@ -36,7 +36,6 @@ class Complex
 };
 int main()
 {
-    
     Complex A(5,6), B(6), C;
     A.show();
     B.show();
