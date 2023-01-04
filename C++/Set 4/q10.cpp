@@ -5,6 +5,10 @@ using namespace std;
 class Shapes
 {
     public:
+        Shapes()
+        {
+            
+        }
         double calVal(double length)
         {
             // CUBE
